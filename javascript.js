@@ -1,5 +1,11 @@
-console.log(getHumanChoice());
-console.log(getComputerChoice());
+var humanScore = 0;
+var computerScore = 0;
+var score = 0;
+var playing = true;
+
+while(playing) {
+    playRound(getHumanChoice(), getComputerChoice());
+}
 /** function getComputerChoice generates a random number between 1 and 3.
  *  That number is then put through a switch statement, with each case returning
  *  either 'rock', 'paper', or 'scissors' depending on the number.
@@ -25,17 +31,38 @@ function getComputerChoice() {
  *  1 Prompt user to type their choice/or use buttons with established choices
  *  2 check if user input a valid play, if valid then play it, else ask again until input is valid
  *  3 return user input
+ *  IMPLEMENTATION
+ *  the user is prompted to choose rock, paper, or scissors. While the answer is
+ *  not either rock, paper, or scissors. The user will continue to recieve the prompt
+ *  until the answer is rock, paper or scissors. The choice is then returned.
  */
 function getHumanChoice() {
-    let playerChoice = prompt("Will you play 'Rock', 'Paper' or 'Scissors'?");
-    let enumerated = 0;
-    while(playerChoice.toLowerCase() != 'rock' && playerChoice.toLowerCase() != 'paper' && playerChoice.toLowerCase() != 'scissors') {
-        if (enumerated < 3) {
-            playerChoice = prompt("Will you play 'Rock', 'Paper' or 'Scissors'?");
-        } else {
-            playerChoice = prompt("please select 'Rock', 'Paper' or 'Scissors'.");
+    let playerChoice = 'cancel';
+    try {
+        playerChoice = prompt("Will you play 'Rock', 'Paper' or 'Scissors'?");
+        let enumerated = 0;
+        while(playerChoice.toLowerCase() != 'rock' && playerChoice.toLowerCase() != 'paper' && playerChoice.toLowerCase() != 'scissors') {
+            if (enumerated < 3) {
+                playerChoice = prompt("Will you play 'Rock', 'Paper' or 'Scissors'?");
+            } else {
+                playerChoice = prompt("Please select 'Rock', 'Paper' or 'Scissors'.");
+            }
+            enumerated++;
         }
-        enumerated++;
+    } catch (error) {
+        playerChoice = 'cancel';
+        playing = false;
     }
-    return playerChoice
+    return playerChoice;
+}
+
+/** */
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice == 'cancel') {
+        console.log('exiting play loop.')
+    } else {
+        console.log(humanChoice);
+        score++;
+    }
+    console.log(`Your score is ${score}`);
 }
