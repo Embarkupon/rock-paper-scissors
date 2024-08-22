@@ -2,11 +2,9 @@ var humanScore = 0;
 var computerScore = 0;
 var playing = true;
 
-/** while loop calls the playRound function until the player cancels the prompt. */
-while(playing) {
-    playRound(getHumanChoice(), getComputerChoice());
-}
+playGame();
 
+/** while loop calls the playRound function until the player cancels the prompt. */
 function playGame() {
     playing = true;
     while(playing) {
@@ -78,6 +76,8 @@ function playRound(humanChoice, computerChoice) {
     if (humanChoice == 'cancel') {
         alert(`Thanks for playing!\nYour final score is ${humanScore}\nComputer's final score is ${computerScore}`);
         console.log('exiting game loop.')
+        humanScore = 0;
+        computerScore = 0;
         return;
     } else {
         console.log(`Computer chose ${computerChoice}`);
