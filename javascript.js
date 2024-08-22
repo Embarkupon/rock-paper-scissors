@@ -7,6 +7,13 @@ while(playing) {
     playRound(getHumanChoice(), getComputerChoice());
 }
 
+function playGame() {
+    playing = true;
+    while(playing) {
+        playRound(getHumanChoice(), getComputerChoice());
+    }
+}
+
 /** function getComputerChoice generates a random number between 1 and 3.
  *  That number is then put through a switch statement, with each case returning
  *  either 'rock', 'paper', or 'scissors' depending on the number.
