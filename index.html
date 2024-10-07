@@ -5,13 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock, Paper, Scissors</title>
     <style>body {background-color: #40354b;}
-        .instructions {text-align: center; padding: 21px; font-size: 21px; color: rgb(226, 0, 0); font-weight: bolder;}
+        .instructions {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bolder;
+            color: rgb(255, 209, 213);
+        }
+        .button-container{
+            padding: 32px; 
+            gap: 21px; 
+            display: flex; 
+            flex-direction: row; 
+            justify-content: center;
+        }
+        button {
+            width: 100%;
+            max-width: 200px;
+            height: 50px;
+            font-size: 21px;
+            border-radius: 9px;
+            border: 2px solid rgb(56, 2, 47);
+            background-color: rgb(90, 22, 64);
+            color: rgb(255, 209, 213); 
+            font-weight: bolder;
+        }
+        button:hover {
+            background-color: rgb(172, 130, 180);
+            color: white;
+        }
+        button:active {
+            transform: scale(0.96);
+            box-shadow: 0px 0px 9px 6px rgb(156, 153, 160);
+        }
     </style>
-</head>
-<body>
     <script src="javascript.js">
         //console.log("Hello World");
     </script>
-    <div class="instructions">Enter the develepor console and type "playGame()", without the quotation marks, to continue playing.</div>
+</head>
+<body>
+    <div class="instructions">Choose Rock, Paper, or Scissors to play!</div>
+    <div class="button-container">
+        <button>Rock</button>
+        <button>Paper</button>
+        <button>Scissors</button>
+    </div>
+
 </body>
 </html>

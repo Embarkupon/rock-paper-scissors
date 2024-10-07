@@ -6,10 +6,7 @@ playGame();
 
 /** while loop calls the playRound function until the player cancels the prompt. */
 function playGame() {
-    playing = true;
-    while(playing) {
-        playRound(getHumanChoice(), getComputerChoice());
-    }
+
 }
 
 /** function getComputerChoice generates a random number between 1 and 3.
