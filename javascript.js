@@ -6,7 +6,19 @@ playGame();
 
 /** while loop calls the playRound function until the player cancels the prompt. */
 function playGame() {
-
+    const buttons = document.querySelectorAll("button");
+    console.log(buttons);
+    let playerChoice = "cancel";
+    buttons.forEach((button) => {
+        button.addEventListener("click", () =>{
+            playerChoice = button.innerText;
+            console.log(playerChoice.toLowerCase());
+            //disables all buttons once one is selected
+            buttons.forEach((button) => {
+                button.disabled = true;
+            });
+        });
+    });
 }
 
 /** function getComputerChoice generates a random number between 1 and 3.
