@@ -7,6 +7,12 @@ playGame();
 /** while loop calls the playRound function until the player cancels the prompt. */
 function playGame() {
     let playerChoice = "cancel";
+    const divContainer = document.querySelector(".results");
+
+    const result = document.createElement("p");
+    result.style.color = "white";
+    result.classList.add("result");
+
     const buttons = document.querySelectorAll("button");
     console.log(buttons);
     buttons.forEach((button) => {
@@ -14,7 +20,7 @@ function playGame() {
             playerChoice = button.innerText.toLowerCase();
             console.log(playerChoice);
             if (playerChoice != "cancel") {
-                playRound(divContainer, playerChoice, getComputerChoice());
+                playRound(divContainer, result, playerChoice, getComputerChoice());
             }
             //disables all buttons once one is selected
             /*buttons.forEach((button) => {
@@ -22,16 +28,9 @@ function playGame() {
             });*/
         });
     });
-
-    const divContainer = document.querySelector("results");
-
-    const result = document.createElement("p");
-    result.style.color = "white";
-    result.classList.add("result");
-    console.log(playerChoice);
 }
 
-function playRound(container, humanChoice, computerChoice) {
+function playRound(div, p, humanChoice, computerChoice) {
     let playerWon = true;
     let draw = false;
     let play = humanChoice.toLowerCase();
@@ -71,13 +70,15 @@ function playRound(container, humanChoice, computerChoice) {
 
     if (playerWon && !draw) {
         humanScore++;
-        alert(`You won! ${play} beats ${computerChoice}!\nPlayer got a point!\nYour score is ${humanScore}\nComputer score is ${computerScore}`);
+        p.textContent = `You won! ${play} beats ${computerChoice}!\nPlayer got a point!\nYour score is ${humanScore}\nComputer score is ${computerScore}`
     } else if(draw) {
-        alert(`It's a Draw, you both chose ${play}!\nThe score didn't change.\nYour score is ${humanScore}\nComputer score is ${computerScore}`);
+        p.textContent = `It's a Draw, you both chose ${play}!\nThe score didn't change.\nYour score is ${humanScore}\nComputer score is ${computerScore}`;
     } else {
         computerScore++;
-        alert(`You lost! ${computerChoice} beats ${play}.\nComputer got a point!\nYour score is ${humanScore}\nComputer score is ${computerScore}`);
+        p.textContent = `You lost! ${computerChoice} beats ${play}.\nComputer got a point!\nYour score is ${humanScore}\nComputer score is ${computerScore}`;
     }
+
+    div.appendChild(p); 
 }
 
 /** function getComputerChoice generates a random number between 1 and 3.
