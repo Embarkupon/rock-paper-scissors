@@ -10,7 +10,7 @@ function playGame() {
     const divContainer = document.querySelector(".results");
 
     const result = document.createElement("p");
-    result.style.color = "white";
+    result.setAttribute("style", "color: white; font-size: 21px; font-weight: bolder")
     result.classList.add("result");
 
     const buttons = document.querySelectorAll("button");
