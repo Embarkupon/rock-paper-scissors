@@ -6,19 +6,78 @@ playGame();
 
 /** while loop calls the playRound function until the player cancels the prompt. */
 function playGame() {
+    let playerChoice = "cancel";
     const buttons = document.querySelectorAll("button");
     console.log(buttons);
-    let playerChoice = "cancel";
     buttons.forEach((button) => {
         button.addEventListener("click", () =>{
-            playerChoice = button.innerText;
-            console.log(playerChoice.toLowerCase());
+            playerChoice = button.innerText.toLowerCase();
+            console.log(playerChoice);
+            if (playerChoice != "cancel") {
+                playRound(divContainer, playerChoice, getComputerChoice());
+            }
             //disables all buttons once one is selected
-            buttons.forEach((button) => {
+            /*buttons.forEach((button) => {
                 button.disabled = true;
-            });
+            });*/
         });
     });
+
+    const divContainer = document.querySelector("results");
+
+    const result = document.createElement("p");
+    result.style.color = "white";
+    result.classList.add("result");
+    console.log(playerChoice);
+}
+
+function playRound(container, humanChoice, computerChoice) {
+    let playerWon = true;
+    let draw = false;
+    let play = humanChoice.toLowerCase();
+    console.log(`You chose ${play}`);
+    console.log(`Computer chose ${computerChoice}`);
+    switch(computerChoice) {
+        case 'rock':
+            if (play == 'rock') {       
+                draw = true;
+            } else if (play == 'paper') {
+                playerWon = true;
+            } else if (play == 'scissors') {
+                playerWon = false;
+            }
+            break;
+        case 'paper':
+            if (play == 'rock') {
+                playerWon = false;
+            } else if (play == 'paper') {
+                draw = true;
+            } else if (play == 'scissors') {
+                playerWon = true;
+            }
+            break;
+        case 'scissors':
+            if (play == 'rock') {
+                playerWon = true;
+            } else if (play == 'paper') {
+                playerWon = false;
+            } else if (play == 'scissors') {
+                draw = true;
+            }
+            break;
+        default:
+            break;
+    }
+
+    if (playerWon && !draw) {
+        humanScore++;
+        alert(`You won! ${play} beats ${computerChoice}!\nPlayer got a point!\nYour score is ${humanScore}\nComputer score is ${computerScore}`);
+    } else if(draw) {
+        alert(`It's a Draw, you both chose ${play}!\nThe score didn't change.\nYour score is ${humanScore}\nComputer score is ${computerScore}`);
+    } else {
+        computerScore++;
+        alert(`You lost! ${computerChoice} beats ${play}.\nComputer got a point!\nYour score is ${humanScore}\nComputer score is ${computerScore}`);
+    }
 }
 
 /** function getComputerChoice generates a random number between 1 and 3.
@@ -51,25 +110,6 @@ function getComputerChoice() {
  *  not either rock, paper, or scissors. The user will continue to recieve the prompt
  *  until the answer is rock, paper or scissors. The choice is then returned.
  */
-function getHumanChoice() {
-    let playerChoice = 'cancel';
-    try {
-        playerChoice = prompt("Will you play 'Rock', 'Paper' or 'Scissors'?");
-        let enumerated = 0;
-        while(playerChoice.toLowerCase() != 'rock' && playerChoice.toLowerCase() != 'paper' && playerChoice.toLowerCase() != 'scissors') {
-            if (enumerated < 3) {
-                playerChoice = prompt("Sorry, I didn't understand.\nWill you play 'Rock', 'Paper' or 'Scissors'?");
-            } else {
-                playerChoice = prompt("Please type one of the three choices:\n 'Rock', 'Paper' or 'Scissors'.");
-            }
-            enumerated++;
-        }
-    } catch (error) {
-        playerChoice = 'cancel';
-        playing = false;
-    }
-    return playerChoice;
-}
 
 /** The playRound functions plays takes the player's and computer's choices and
  *  compares them to determine who wins. Depending on whether the player wins, loses
@@ -77,58 +117,3 @@ function getHumanChoice() {
  *  of the round. At the end of the round (function) the results will be displayed
  *  and the scoreboard will be updated.
 */
-function playRound(humanChoice, computerChoice) {
-    let playerWon = true;
-    let draw = false;
-    let play = humanChoice.toLowerCase();
-    console.log(`You chose ${play}`);
-    if (humanChoice == 'cancel') {
-        alert(`Thanks for playing!\nYour final score is ${humanScore}\nComputer's final score is ${computerScore}`);
-        console.log('exiting game loop.')
-        humanScore = 0;
-        computerScore = 0;
-        return;
-    } else {
-        console.log(`Computer chose ${computerChoice}`);
-        switch(computerChoice) {
-            case 'rock':
-                if (play == 'rock') {       
-                    draw = true;
-                } else if (play == 'paper') {
-                    playerWon = true;
-                } else if (play == 'scissors') {
-                    playerWon = false;
-                }
-                break;
-            case 'paper':
-                if (play == 'rock') {
-                    playerWon = false;
-                } else if (play == 'paper') {
-                    draw = true;
-                } else if (play == 'scissors') {
-                    playerWon = true;
-                }
-                break;
-            case 'scissors':
-                if (play == 'rock') {
-                    playerWon = true;
-                } else if (play == 'paper') {
-                    playerWon = false;
-                } else if (play == 'scissors') {
-                    draw = true;
-                }
-                break;
-            default:
-                break;
-        }
-    }
-    if (playerWon && !draw) {
-        humanScore++;
-        alert(`You won! ${play} beats ${computerChoice}!\nPlayer got a point!\nYour score is ${humanScore}\nComputer score is ${computerScore}`);
-    } else if(draw) {
-        alert(`It's a Draw, you both chose ${play}!\nThe score didn't change.\nYour score is ${humanScore}\nComputer score is ${computerScore}`);
-    } else {
-        computerScore++;
-        alert(`You lost! ${computerChoice} beats ${play}.\nComputer got a point!\nYour score is ${humanScore}\nComputer score is ${computerScore}`);
-    }
-}
